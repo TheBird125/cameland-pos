@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CAMELAND POS v2</title>
+<style>
+:root{--green:#173b2b;--green2:#286044;--gold:#e6b84a;--bg:#f3f6f2;--line:#dce4dd;--muted:#69756d}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:#172019}
+button,input,select{font:inherit}.app{display:flex;min-height:100vh}.side{width:225px;background:var(--green);color:white;padding:22px 15px}.logo{font-weight:900;font-size:26px;letter-spacing:1px}.logo small{display:block;font-size:10px;letter-spacing:2px;opacity:.7;margin-top:2px}.nav{margin-top:30px}.nav button{width:100%;border:0;background:transparent;color:#dbe8df;text-align:left;padding:12px 13px;border-radius:10px;margin:3px 0;cursor:pointer}.nav button:hover,.nav button.active{background:#2a5d44;color:white}.user{position:absolute;bottom:18px;width:195px;font-size:12px;color:#b9cfc0;border-top:1px solid #ffffff22;padding-top:12px}.main{flex:1;padding:25px;max-width:1450px;margin:auto;width:100%}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.top h1{margin:0;font-size:28px}.badge{background:#e7eee9;padding:8px 11px;border-radius:9px;font-size:13px}.grid{display:grid;grid-template-columns:1fr 350px;gap:20px}.tickets{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.ticket{background:linear-gradient(135deg,#fff 0%,#f7faf7 100%);border:1px solid #cfdad1;border-radius:14px;padding:0;text-align:left;cursor:pointer;overflow:hidden;position:relative;min-height:138px;display:flex;flex-direction:column;justify-content:space-between}.ticket:before{content:"CAMELAND • ADMISSION";display:block;background:var(--green);color:white;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:8px 15px}.ticket:after{content:"";position:absolute;right:0;top:38px;bottom:0;border-left:2px dashed #c8d3ca}.ticket:hover{box-shadow:0 9px 24px #173b2b20;transform:translateY(-2px)}.ticket h3{margin:13px 72px 4px 15px;font-size:19px}.price{font-size:23px;font-weight:900;color:var(--green);margin:0 72px 4px 15px}.desc{font-size:12px;color:var(--muted);margin:0 72px 14px 15px}.ticket .price:after{content:"VAT INCLUDED";display:block;font-size:9px;color:#718078;font-weight:700;letter-spacing:.4px;margin-top:1px}.cart,.panel,.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:19px}.cart{position:sticky;top:15px;height:max-content}.cart h2{margin-top:0}.item{display:flex;justify-content:space-between;border-bottom:1px solid #edf0ed;padding:11px 0}.qty{display:flex;align-items:center;gap:6px}.qty button{border:0;background:#e9eee9;border-radius:6px;width:25px;height:25px;cursor:pointer}.row{display:flex;justify-content:space-between;margin:7px 0}.total{font-weight:900;font-size:21px;margin-top:13px}.pay{width:100%;border:0;border-radius:10px;padding:14px;background:var(--gold);font-weight:900;cursor:pointer;margin-top:12px}.clear{width:100%;border:1px solid #ddd;background:white;border-radius:9px;padding:9px;margin-top:8px;cursor:pointer}.empty{text-align:center;color:var(--muted);padding:25px 0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.stat span{color:var(--muted);font-size:13px}.stat b{font-size:27px;display:block;margin-top:7px}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px;text-align:left;border-bottom:1px solid #edf0ed}.ok{color:#187143;font-weight:800}.bad{color:#a33b3b;font-weight:800}.primary{background:var(--green);color:white;border:0;border-radius:9px;padding:10px 14px;cursor:pointer}.danger{background:#fff;border:1px solid #e0baba;color:#9a3333;border-radius:8px;padding:7px 10px;cursor:pointer}.modal{position:fixed;inset:0;background:#0007;display:flex;align-items:center;justify-content:center;padding:20px}.modalbox{background:#fff;border-radius:16px;padding:25px;width:min(470px,100%)}.modalbox input,.modalbox select{width:100%;padding:11px;border:1px solid #ccd6ce;border-radius:8px;margin:7px 0 14px}.modalactions{display:flex;gap:9px}.modalactions button{flex:1;padding:11px;border-radius:8px;border:0;cursor:pointer}.hidden{display:none!important}.ticketprint{max-width:440px;margin:auto;background:#fff;border:1px solid #d2dbd4;border-radius:18px;padding:0;text-align:center;overflow:hidden;box-shadow:0 12px 35px #173b2b18}.tickethead{background:var(--green);color:white;padding:20px}.ticketbody{padding:22px}.ticketcode{font-family:monospace;letter-spacing:2px;font-size:13px}.qr{width:170px;height:170px;margin:18px auto;background:repeating-linear-gradient(0deg,#111 0 3px,#fff 3px 6px),repeating-linear-gradient(90deg,transparent 0 4px,#111 4px 7px);border:10px solid white;box-shadow:0 0 0 1px #ccc}.login{position:fixed;inset:0;background:var(--green);display:flex;align-items:center;justify-content:center}.loginbox{background:white;width:360px;padding:28px;border-radius:18px}.loginbox h1{margin-top:0}.loginbox input{width:100%;padding:12px;margin:8px 0;border:1px solid #ccd6ce;border-radius:8px}.loginbox button{width:100%;padding:12px;border:0;border-radius:9px;background:var(--gold);font-weight:900;cursor:pointer}.hint{font-size:12px;color:var(--muted);margin-top:10px}.search{padding:10px;width:250px;border:1px solid #ccd6ce;border-radius:8px}.notice{padding:12px;background:#eef5ef;border-radius:9px;margin-bottom:12px}@media(max-width:900px){.side{width:180px}.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.side{display:none}.tickets{grid-template-columns:1fr}.main{padding:15px}}
+@media print{body *{visibility:hidden}.ticketprint,.ticketprint *{visibility:visible}.ticketprint button{display:none}.ticketprint{position:absolute;left:0;top:0;width:100%;border:0}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+.role{font-size:11px;color:#b9cfc0}
+.scanbox{max-width:620px;margin:0 auto;text-align:center;padding:28px}
+.scan-input{font-size:20px;text-align:center;padding:15px;width:100%;border:2px solid #cbd8cf;border-radius:12px;margin:12px 0}
+.scan-result{margin-top:18px;padding:22px;border-radius:14px}
+.valid{background:#eaf7ee;border:1px solid #b9dfc4;color:#176b38}
+.invalid{background:#fff0f0;border:1px solid #e3b8b8;color:#9a3333}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px}
+.kpi span{font-size:12px;color:var(--muted)}.kpi b{font-size:24px;display:block;margin-top:5px}
+.log{font-family:ui-monospace,monospace;font-size:12px}
+.shift{background:#244f3a;color:white;border-radius:10px;padding:9px 11px;margin-top:10px}
+.approval{background:#fff8e8;border:1px solid #ead29a;padding:12px;border-radius:9px;margin:10px 0}
+.smallbtn{border:1px solid #cfd8d1;background:white;border-radius:7px;padding:6px 9px;cursor:pointer}
+</style>
+
+<script>
+function getVerifyTicketId(){
+  const p = new URLSearchParams(location.search);
+  return p.get("ticket") || "";
+}
+function showPublicVerification(){
+  const id = getVerifyTicketId();
+  if(!id) return false;
+  document.body.innerHTML = `
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f3f4f6;font-family:Arial,sans-serif">
+      <div style="width:min(520px,100%);background:white;border-radius:22px;padding:30px;box-shadow:0 12px 40px rgba(0,0,0,.12);text-align:center">
+        <div style="font-size:34px;font-weight:900;letter-spacing:2px">CAMELAND</div>
+        <div style="margin-top:8px;color:#6b7280">Ticket Verification</div>
+        <div id="publicStatus" style="margin:26px 0;font-size:20px;font-weight:800">Checking ticket...</div>
+        <div style="background:#f9fafb;border-radius:14px;padding:16px;text-align:left">
+          <div><b>Ticket ID:</b> <span id="publicId"></span></div>
+          <div style="margin-top:8px;color:#6b7280">This page verifies the ticket against the data stored in this browser.</div>
+        </div>
+        <div style="margin-top:22px;font-size:12px;color:#9ca3af">CAMELAND POS V6 • iPad Ready</div>
+      </div>
+    </div>`;
+  document.getElementById("publicId").textContent = id;
+  const sales = JSON.parse(localStorage.getItem("camelSales") || "[]");
+  const t = sales.find(x => x.id === id);
+  const status = document.getElementById("publicStatus");
+  if(!t){
+    status.textContent = "✕ TICKET NOT FOUND";
+    status.style.color = "#b91c1c";
+  } else if(t.status === "REFUNDED"){
+    status.textContent = "✕ TICKET REFUNDED";
+    status.style.color = "#b91c1c";
+  } else if(t.status === "USED"){
+    status.textContent = "⚠ TICKET ALREADY USED";
+    status.style.color = "#b45309";
+  } else {
+    status.textContent = "✓ TICKET VALID";
+    status.style.color = "#15803d";
+  }
+  return true;
+}
+if(showPublicVerification()) window.__publicVerifyMode = true;
+</script>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="CAMELAND POS">
+<meta name="theme-color" content="#ffffff">
+
+<style>
+  html, body { -webkit-text-size-adjust: 100%; }
+  body { padding-bottom: env(safe-area-inset-bottom); }
+  button, input, select, textarea { font-size: 16px; }
+  button { min-height: 44px; -webkit-tap-highlight-color: transparent; }
+  input, select { min-height: 44px; }
+  .card, .panel, .ticket, .product, .stat { min-width: 0; }
+  @media (max-width: 900px) {
+    .container, .wrap, .app, .shell, main { max-width: 100% !important; }
+    .grid, .layout, .content-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (min-width: 901px) and (max-width: 1200px) {
+    body { font-size: 15px; }
+  }
+  @media (pointer: coarse) {
+    button, input, select { min-height: 48px; }
+  }
+  @media (orientation: landscape) and (max-height: 700px) {
+    header { padding-top: 8px !important; padding-bottom: 8px !important; }
+  }
+</style>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+}
+</script>
+</head>
+
+<body>
+<script>if(window.__publicVerifyMode) document.body.style.background="#f3f4f6";</script>
+
+<div id="login" class="login">
+ <div class="loginbox">
+  <h1>🐪 CAMELAND</h1><p>Point of Sale</p>
+  <input id="loginUser" placeholder="Cashier ID" value="FIN">
+  <input id="loginPin" placeholder="PIN" type="password" value="1234">
+  <button onclick="login()">LOGIN</button>
+  <div class="hint">Manager: FIN / 1234 &nbsp; • &nbsp; Admin: MANAGER / 9999</div>
+ </div>
+</div>
+
+<div id="app" class="app hidden">
+<aside class="side">
+ <div class="logo">🐪 CAMELAND<small>THEME PARK POS • V5</small></div>
+ <div class="nav">
+  <button class="active" onclick="page('sell',this)">🎟 Sell Tickets</button>
+  <button onclick="page('dashboard',this)">▦ Dashboard</button>
+  <button onclick="page('tickets',this)">▣ Ticket Lookup</button>
+  <button onclick="page('gate',this)">▣ Gate Scanner</button>
+  <button onclick="page('shifts',this)">◷ Cashier Shift</button>
+  <button onclick="page('reports',this)">▤ Reports</button>
+  <button onclick="page('settings',this)">⚙ Settings</button>
+ </div>
+ <div class="user">Logged in as <b id="cashierName">FIN</b><div class="role" id="roleName">Manager</div><br><button style="margin-top:8px;border:0;background:none;color:#b9cfc0;cursor:pointer" onclick="logout()">Log out</button></div>
+</aside>
+
+<main class="main">
+<section id="sell">
+ <div class="top"><h1>Sell Tickets</h1><div class="badge">Cashier: <b id="topCashier">FIN</b></div></div>
+ <div class="grid">
+  <div class="tickets" id="ticketButtons"></div>
+  <div class="cart"><h2>Current Sale</h2><div id="cart"></div>
+   <div class="row"><span>Price (VAT included)</span><span id="sub">AED 0.00</span></div>
+   <div class="row total"><span>Total</span><span id="total">AED 0.00</span></div>
+   <button class="pay" onclick="openPayment()">PAY & ISSUE</button>
+   <button class="clear" onclick="clearCart()">Clear sale</button>
+  </div>
+ </div>
+</section>
+
+<section id="dashboard" class="hidden">
+ <div class="top"><h1>Dashboard</h1><button class="primary" onclick="page('sell',document.querySelector('.nav button'))">New Sale</button></div>
+ <div class="stats">
+  <div class="stat"><span>Sales today</span><b id="dSales">AED 0</b></div>
+  <div class="stat"><span>Tickets sold</span><b id="dTickets">0</b></div>
+  <div class="stat"><span>Tickets admitted</span><b id="dUsed">0</b></div>
+  <div class="stat"><span>Transactions</span><b id="dTx">0</b></div>
+ </div>
+ <br><div class="panel"><h2>Recent transactions</h2><div id="recent"></div></div>
+</section>
+
+<section id="tickets" class="hidden">
+ <div class="top"><h1>Ticket Lookup & Scanner</h1><input class="search" id="search" placeholder="Enter ticket ID" oninput="lookup()"></div>
+ <div class="panel"><div id="lookupResult">Enter a ticket ID to search.</div></div>
+</section>
+
+
+<section id="gate" class="hidden">
+ <div class="top"><h1>Entrance Gate</h1><div class="badge">CAMELAND • GATE 01</div></div>
+ <div class="panel scanbox">
+  <h2>Scan admission ticket</h2>
+  <p>Enter the ticket number below to simulate a QR scan.</p>
+  <input id="gateId" class="scan-input" placeholder="CAM-XXXXXXXXXXXX-123-1" onkeydown="if(event.key==='Enter')scanGate()">
+  <button class="primary" onclick="scanGate()">SCAN TICKET</button>
+  <div id="gateResult"></div>
+ </div>
+</section>
+
+<section id="shifts" class="hidden">
+ <div class="top"><h1>Cashier Shift</h1><button class="primary" onclick="toggleShift()">Open / Close Shift</button></div>
+ <div class="kpis">
+  <div class="kpi"><span>Shift status</span><b id="shiftStatus">CLOSED</b></div>
+  <div class="kpi"><span>Cashier</span><b id="shiftCashier">FIN</b></div>
+  <div class="kpi"><span>Transactions</span><b id="shiftTx">0</b></div>
+  <div class="kpi"><span>Sales</span><b id="shiftSales">AED 0</b></div>
+  <div class="kpi"><span>Opened</span><b id="shiftOpened">—</b></div>
+ </div>
+ <div class="panel"><h2>Audit log</h2><div id="audit" class="log"></div></div>
+</section>
+
+<section id="reports" class="hidden">
+ <div class="top"><h1>Reports</h1><button class="primary" onclick="exportCSV()">Export CSV</button></div>
+ <div class="panel"><h2>Sales report</h2><div id="report"></div></div>
+</section>
+
+<section id="settings" class="hidden">
+ <div class="top"><h1>Settings</h1></div>
+ <div class="panel"><h3>Ticket prices</h3><div class="notice">All prices entered here are <b>VAT-inclusive</b>. The customer pays exactly the displayed amount. Refunds require the MANAGER account.</div><div id="priceEditor"></div><br><button class="primary" onclick="savePrices()">Save prices</button></div>
+</section>
+
+<section id="issued" class="hidden">
+ <div class="top"><h1>Ticket Issued</h1><button class="primary" onclick="newSale()">New Sale</button></div>
+ <div class="ticketprint"><div class="tickethead"><div style="font-size:30px;font-weight:900">🐪 CAMELAND</div><div style="font-size:11px;letter-spacing:2px">THEME PARK • ADMISSION TICKET</div></div><div class="ticketbody"><h2 id="issuedType"></h2><p id="issuedInfo"></p><div class="qr" id="qr"></div><div class="ticketcode" id="issuedId"></div><p style="font-size:12px;color:#69756d">Scan this ticket at the entrance. Keep it safe for the duration of your visit.</p><hr><p><b>PRICE INCLUDES 5% VAT</b></p><button class="primary" onclick="window.print()">Print Ticket</button></div></div>
+</section>
+</main>
+</div>
+
+<div id="payment" class="modal hidden">
+ <div class="modalbox"><h2>Payment</h2><div class="row total"><span>Amount due</span><span id="payTotal">AED 0.00</span></div>
+  <label>Payment method</label><select id="method"><option>Card</option><option>Cash</option><option>Apple Pay</option><option>Google Pay</option></select>
+  <div id="cashBox" class="hidden"><label>Cash received</label><input id="cash" type="number" min="0" step=".01" oninput="changeDue()"><div class="row"><span>Change</span><b id="change">AED 0.00</b></div></div>
+  <div class="modalactions"><button onclick="closePayment()">Cancel</button><button class="primary" onclick="completeSale()">Complete Payment</button></div>
+ </div>
+</div>
+
+<script>
+const defaultPrices={Adult:150,Child:100,Senior:80,Family:450,VIP:250,"Annual Pass":799};
+let prices=JSON.parse(localStorage.getItem('camel_prices')||'null')||{};prices={...defaultPrices,...prices};
+let sales=JSON.parse(localStorage.getItem('camel_sales')||'[]');
+let cart={}; let cashier='FIN';
+
+function money(n){return 'AED '+Number(n).toFixed(2)}
+function save(){localStorage.setItem('camel_sales',JSON.stringify(sales));localStorage.setItem('camel_prices',JSON.stringify(prices))}
+function login(){let u=document.getElementById('loginUser').value.trim()||'FIN',p=document.getElementById('loginPin').value;if((u==='FIN'&&p==='1234')||(u==='MANAGER'&&p==='9999')){cashier=u;document.getElementById('cashierName').textContent=cashier;document.getElementById('topCashier').textContent=cashier;document.getElementById('roleName').textContent=u==='MANAGER'?'Administrator':'Manager';document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden');renderAll()}else alert('Incorrect cashier ID or PIN.')}
+function logout(){location.reload()}
+function page(id,btn){document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='dashboard')renderDashboard();if(id==='tickets')lookup();if(id==='reports')renderReport();if(id==='settings')renderPrices();if(id==='shifts')renderShift()}
+function ticketDescription(n){const d={Adult:'Age 13+ • VAT included',Child:'Age 3–12 • VAT included',Senior:'Age 60+ • VAT included',Family:'2 adults + 2 children • VAT included',VIP:'Priority entry • VAT included','Annual Pass':'Unlimited visits • VAT included'};return d[n]||'Theme park admission • VAT included'}
+function addTicket(n,p){if(!(n in prices)){alert('Ticket type is unavailable.');return}if(!cart[n])cart[n]={price:Number(p),qty:0};cart[n].qty++;renderCart()}
+function renderButtons(){let e=document.getElementById('ticketButtons');e.innerHTML='';for(const [n,p] of Object.entries(prices)){e.innerHTML+=`<button class="ticket" onclick="addTicket('${n.replaceAll("'","\\'")}',${p})"><h3>${n}</h3><div class="price">${money(p)}</div><div class="desc">${ticketDescription(n)}</div></button>`}}
+function add(n,p){if(!cart[n])cart[n]={price:p,qty:0};cart[n].qty++;renderCart()}
+function change(n,d){cart[n].qty+=d;if(cart[n].qty<=0)delete cart[n];renderCart()}
+function clearCart(){cart={};renderCart()}
+function renderCart(){let e=document.getElementById('cart');e.innerHTML='';let sub=0,count=0;for(let [n,x] of Object.entries(cart)){sub+=x.price*x.qty;count+=x.qty;e.innerHTML+=`<div class="item"><div><b>${n}</b><br>${money(x.price)} × ${x.qty}</div><div class="qty"><button onclick="change('${n}',-1)">−</button><span>${x.qty}</span><button onclick="change('${n}',1)">+</button></div></div>`}if(!count)e.innerHTML='<div class="empty">No tickets added.</div>';document.getElementById('sub').textContent=money(sub);document.getElementById('total').textContent=money(sub)}
+function subtotal(){return Object.values(cart).reduce((a,x)=>a+x.price*x.qty,0)}
+function openPayment(){if(!Object.keys(cart).length){alert('Add a ticket first.');return}document.getElementById('payTotal').textContent=money(subtotal());document.getElementById('payment').classList.remove('hidden');document.getElementById('method').onchange=()=>document.getElementById('cashBox').classList.toggle('hidden',document.getElementById('method').value!=='Cash');}
+function closePayment(){document.getElementById('payment').classList.add('hidden')}
+function changeDue(){let due=subtotal(),c=Number(document.getElementById('cash').value||0);document.getElementById('change').textContent=money(Math.max(0,c-due))}
+function completeSale(){let due=subtotal(),method=document.getElementById('method').value;if(method==='Cash'&&Number(document.getElementById('cash').value||0)<due){alert('Cash received is less than the amount due.');return}let id='CAM-'+new Date().toISOString().replace(/\D/g,'').slice(0,14)+'-'+Math.floor(100+Math.random()*900);let items=[];for(let [n,x] of Object.entries(cart)){for(let i=0;i<x.qty;i++){let tid=id+'-'+(items.length+1);items.push({id:tid,type:n,status:'VALID',date:new Date().toLocaleString(),price:x.price})}}let sale={id,date:new Date().toISOString(),cashier,method,total:due,items};sales.unshift(sale);if(shift.open){shift.sales+=due;shift.tx+=1;localStorage.setItem('camel_shift',JSON.stringify(shift));auditLog('Sale '+id+' • '+money(due));}save();cart={};renderCart();closePayment();document.getElementById('issuedType').textContent=items.length===1?items[0].type:items.length+' CAMELAND TICKETS';document.getElementById('issuedInfo').textContent=new Date().toLocaleString()+' • Paid by '+method;document.getElementById('issuedId').textContent=items[0].id;page('issued',null);setTimeout(()=>{let q=document.getElementById('qr');q.innerHTML='';if(window.QRCode)new QRCode(q,{text:items[0].id,width:150,height:150});},50);renderAll()}
+function newSale(){page('sell',document.querySelector('.nav button'))}
+function renderDashboard(){let tx=sales.length,tk=sales.reduce((a,s)=>a+s.items.length,0),used=sales.reduce((a,s)=>a+s.items.filter(x=>x.status==='USED').length,0),rev=sales.reduce((a,s)=>a+s.total,0);document.getElementById('dSales').textContent=money(rev);document.getElementById('dTickets').textContent=tk;document.getElementById('dUsed').textContent=used;document.getElementById('dTx').textContent=tx;let e=document.getElementById('recent');e.innerHTML=sales.slice(0,8).map(s=>`<div class="item"><div><b>${s.id}</b><br>${new Date(s.date).toLocaleString()} • ${s.cashier}</div><b>${money(s.total)}</b></div>`).join('')||'<div class="empty">No transactions yet.</div>'}
+function allTickets(){return sales.flatMap(s=>s.items)}
+function lookup(){let q=(document.getElementById('search')?.value||'').trim().toUpperCase(),e=document.getElementById('lookupResult');if(!q){e.textContent='Enter a ticket ID to search.';return}let t=allTickets().find(x=>x.id.toUpperCase()===q);if(!t){e.innerHTML='<p class="bad">Ticket not found.</p>';return}e.innerHTML=`<h2>${t.type}</h2><p><b>ID:</b> ${t.id}</p><p><b>Date:</b> ${t.date}</p><p><b>Price:</b> ${money(t.price)} <span style="font-size:11px;color:#69756d">(VAT included)</span></p><p><b>Status:</b> <span class="${t.status==='VALID'?'ok':'bad'}">${t.status}</span></p>${t.status==='VALID'?'<button class="primary" onclick="useTicket(\''+t.id+'\')">ADMIT GUEST</button> <button class="danger" onclick="refundTicket(\''+t.id+'\')">REFUND / CANCEL</button>':'<p>This ticket cannot be admitted.</p>'}`}
+function refundTicket(id){if(cashier!=='MANAGER'){alert('Manager approval required for refunds.');return}for(let s of sales){let t=s.items.find(x=>x.id===id);if(t&&t.status==='VALID'){t.status='REFUNDED';save();auditLog('Refunded '+id);lookup();renderDashboard();return}}}
+function useTicket(id){for(let s of sales){let t=s.items.find(x=>x.id===id);if(t){t.status='USED';save();lookup();return}}}
+function renderReport(){let e=document.getElementById('report');if(!sales.length){e.innerHTML='<div class="empty">No sales yet.</div>';return}e.innerHTML='<table class="table"><tr><th>Transaction</th><th>Cashier</th><th>Method</th><th>Tickets</th><th>Total</th></tr>'+sales.map(s=>`<tr><td>${s.id}</td><td>${s.cashier}</td><td>${s.method}</td><td>${s.items.length}</td><td>${money(s.total)}</td></tr>`).join('')+'</table>'}
+function renderPrices(){document.getElementById('priceEditor').innerHTML=Object.entries(prices).map(([n,p])=>`<label>${n}</label><input data-price="${n}" type="number" value="${p}" min="0" step=".01">`).join('')}
+function savePrices(){document.querySelectorAll('[data-price]').forEach(i=>prices[i.dataset.price]=Number(i.value));save();renderButtons();alert('Prices saved.')}
+function exportCSV(){let rows=['Transaction,Cashier,Payment,Tickets,Total'];sales.forEach(s=>rows.push(`${s.id},${s.cashier},${s.method},${s.items.length},${s.total.toFixed(2)}`));let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.join('\\n')],{type:'text/csv'}));a.download='cameland-sales.csv';a.click()}
+let shift=JSON.parse(localStorage.getItem('camel_shift')||'null')||{open:false,opened:null,cashier:null,sales:0,tx:0};
+let auditLogs=JSON.parse(localStorage.getItem('camel_audit')||'[]');
+function auditLog(msg){auditLogs.unshift(new Date().toLocaleString()+' • '+cashier+' • '+msg);auditLogs=auditLogs.slice(0,100);localStorage.setItem('camel_audit',JSON.stringify(auditLogs));renderShift()}
+function toggleShift(){if(shift.open){shift.open=false;auditLog('Shift closed');alert('Shift closed.')}else{shift={open:true,opened:new Date().toLocaleString(),cashier,sales:0,tx:0};auditLog('Shift opened');alert('Shift opened.')}localStorage.setItem('camel_shift',JSON.stringify(shift));renderShift()}
+function renderShift(){document.getElementById('shiftStatus').textContent=shift.open?'OPEN':'CLOSED';document.getElementById('shiftCashier').textContent=shift.cashier||'—';document.getElementById('shiftTx').textContent=shift.tx||0;document.getElementById('shiftSales').textContent=money(shift.sales||0);document.getElementById('shiftOpened').textContent=shift.opened||'—';document.getElementById('audit').innerHTML=auditLogs.map(x=>'<div style="padding:6px 0;border-bottom:1px solid #eee">'+x+'</div>').join('')||'No audit events.'}
+function scanGate(){let q=document.getElementById('gateId').value.trim().toUpperCase(),e=document.getElementById('gateResult');let t=allTickets().find(x=>x.id.toUpperCase()===q);if(!t){e.innerHTML='<div class="scan-result invalid"><h2>INVALID TICKET</h2><p>Ticket not found in CAMELAND records.</p></div>';return}if(t.status!=='VALID'){e.innerHTML='<div class="scan-result invalid"><h2>'+t.status+'</h2><p>This ticket cannot be admitted.</p></div>';return}e.innerHTML='<div class="scan-result valid"><h2>✓ VALID TICKET</h2><p><b>'+t.type+'</b></p><p>'+t.id+'</p><button class="primary" onclick="useTicket(\''+t.id+'\');document.getElementById(\'gateResult\').innerHTML=\'<div class=&quot;scan-result valid&quot;><h2>✓ GUEST ADMITTED</h2><p>Welcome to CAMELAND!</p></div>\'">ADMIT GUEST</button></div>'}
+function renderAll(){renderButtons();renderCart();renderDashboard();renderReport();renderPrices()}
+renderAll();
+</script>
+</body>
+</html>
